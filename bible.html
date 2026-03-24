@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Reader</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; background-color: #f9f9f9; }
+        .controls { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+        .verse { margin-bottom: 12px; background: white; padding: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .verse-number { font-weight: bold; color: #d32f2f; margin-right: 10px; font-size: 0.85em; }
+        #loading { color: #555; font-style: italic; }
+        h1 { color: #333; }
+         .nav-bar {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+    </style>
+      <link rel="stylesheet" href="style.css">
+    <script src="settings.js" defer></script> 
+</head>
+<body>
+    <div>
+ <nav class="nav-bar">
+    <span><a href="index.html"><img src="house-line.svg" class="icons"></a></span>
+        <span><a href="#"><img src="book-open-text.svg" class="icons"></a></span>
+        <span><a href="games.html"><img src="game-controller.svg" class="icons"></a></span>
+        <span><a href="settings.html"><img src="sliders-horizontal (1).svg" class="icons"></a></span>
+    </nav>
+    <h1>HOLY BIBLE NIV VERSION </h1>
+    <input type="text" id="searchInput" placeholder="Search for a verse...">
+    <div class="controls">
+        <select id="bookSelect"><option>Loading Books...</option></select>
+        <select id="chapterSelect"></select>
+    </div>
+
+    <div id="loading">Connecting to GitHub...</div>
+    <div id="bible-container"></div>
+</div>
+
+    <script>
+        // CRITICAL: The URL must be the "RAW" version for fetch to work
+        const RAW_URL = 'https://raw.githubusercontent.com/Amosamevor/Bible-json/main/versions/en/NEW%20INTERNATIONAL%20VERSION.json';
+        
+        const bookSelect = document.getElementById('bookSelect');
+        const chapterSelect = document.getElementById('chapterSelect');
+        const bibleContainer = document.getElementById('bible-container');
+        const loadingText = document.getElementById('loading');
+
+        let bibleData = null;
+
+        async function initApp() {
+            try {
+                const response = await fetch(RAW_URL);
+                if (!response.ok) throw new Error("Failed to fetch JSON");
+                
+                bibleData = await response.json();
+                loadingText.style.display = 'none';
+
+                // 1. Fill the Book dropdown
+                bookSelect.innerHTML = '';
+                Object.keys(bibleData).forEach(book => {
+                    const option = document.createElement('option');
+                    option.value = book;
+                    option.textContent = book;
+                    bookSelect.appendChild(option);
+                });
+
+                // 2. Setup listeners
+                bookSelect.addEventListener('change', updateChapters);
+                chapterSelect.addEventListener('change', displayVerses);
+
+                // Initial Load
+                updateChapters();
+
+            } catch (error) {
+                loadingText.innerText = "Error: Check your internet connection.";
+                console.error(error);
+            }
+        }
+
+        function updateChapters() {
+            const selectedBook = bookSelect.value;
+            const chapters = bibleData[selectedBook];
+            
+            chapterSelect.innerHTML = '';
+            Object.keys(chapters).forEach(chapNum => {
+                const option = document.createElement('option');
+                option.value = chapNum;
+                option.textContent = `Chapter ${chapNum}`;
+                chapterSelect.appendChild(option);
+            });
+
+            displayVerses();
+        }
+
+        function displayVerses() {
+            const book = bookSelect.value;
+            const chapter = chapterSelect.value;
+            const verses = bibleData[book][chapter];
+
+            bibleContainer.innerHTML = '';
+            
+            // Map through the verses object
+            Object.entries(verses).forEach(([number, text]) => {
+                const p = document.createElement('p');
+                p.className = 'verse';
+                p.innerHTML = `<span class="verse-number">${number}</span> ${text}`;
+                bibleContainer.appendChild(p);
+            });
+
+            // Scroll to top when chapter changes
+            window.scrollTo(0, 0);
+        }
+
+        initApp();
+    </script>
+</body>
+</html>

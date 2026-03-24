@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family:Arial;
+background:#08142a;
+color:white;
+display:flex;
+justify-content:center;
+padding:40px;
+}
+
+.quiz{
+width:400px;
+background:#142349;
+padding:25px;
+border-radius:20px;
+}
+
+.option{
+background:#1f3568;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="quiz">
+
+<h3>Journey Question</h3>
+
+<p>Who led the Israelites out of Egypt?</p>
+
+<div class="option" onclick="answer(true)">Moses</div>
+<div class="option" onclick="answer(false)">David</div>
+<div class="option" onclick="answer(false)">Solomon</div>
+<div class="option" onclick="answer(false)">Abraham</div>
+
+</div>
+
+<script>
+
+function answer(correct){
+
+if(correct){
+
+alert("Correct! You advance.")
+
+let pts=localStorage.getItem("points")||0
+pts=parseInt(pts)+100
+
+localStorage.setItem("points",pts)
+
+}else{
+
+alert("Wrong answer")
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

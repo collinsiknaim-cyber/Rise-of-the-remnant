@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Tribe War</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#08142a;
+color:white;
+display:flex;
+justify-content:center;
+padding:40px;
+}
+
+.container{
+width:420px;
+background:#121f3c;
+border-radius:20px;
+padding:25px;
+}
+
+h1{
+text-align:center;
+}
+
+.tribe{
+background:#1e335f;
+padding:15px;
+border-radius:10px;
+margin-top:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.bar{
+height:10px;
+background:#333;
+border-radius:10px;
+margin-top:6px;
+overflow:hidden;
+}
+
+.progress{
+height:10px;
+background:#e7c071;
+}
+
+.battle-btn{
+margin-top:20px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#e7c071;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚔️ Tribe War</h1>
+
+<div class="tribe">
+<div>
+Judah 🦁
+<div class="bar">
+<div id="judahBar" class="progress"></div>
+</div>
+</div>
+<span id="judahPts">0</span>
+</div>
+
+<div class="tribe">
+<div>
+Dan 🦅
+<div class="bar">
+<div id="danBar" class="progress"></div>
+</div>
+</div>
+<span id="danPts">0</span>
+</div>
+
+<div class="tribe">
+<div>
+Benjamin 🐺
+<div class="bar">
+<div id="benjaminBar" class="progress"></div>
+</div>
+</div>
+<span id="benjaminPts">0</span>
+</div>
+
+<div class="tribe">
+<div>
+Levi 🔥
+<div class="bar">
+<div id="leviBar" class="progress"></div>
+</div>
+</div>
+<span id="leviPts">0</span>
+</div>
+
+<button class="battle-btn" onclick="startBattle()">
+Enter Tribe Battle
+</button>
+
+</div>
+
+<script>
+
+let tribeScores = JSON.parse(localStorage.getItem("tribeScores")) || {
+judah:0,
+dan:0,
+benjamin:0,
+levi:0
+}
+
+function updateUI(){
+
+document.getElementById("judahPts").innerText=tribeScores.judah
+document.getElementById("danPts").innerText=tribeScores.dan
+document.getElementById("benjaminPts").innerText=tribeScores.benjamin
+document.getElementById("leviPts").innerText=tribeScores.levi
+
+let max=5000
+
+document.getElementById("judahBar").style.width=(tribeScores.judah/max*100)+"%"
+document.getElementById("danBar").style.width=(tribeScores.dan/max*100)+"%"
+document.getElementById("benjaminBar").style.width=(tribeScores.benjamin/max*100)+"%"
+document.getElementById("leviBar").style.width=(tribeScores.levi/max*100)+"%"
+
+}
+
+updateUI()
+
+function startBattle(){
+
+window.location="quiz.html"
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Bible Journeys</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:radial-gradient(circle,#0c1a34,#01030a);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+/* MAP */
+
+.map{
+width:420px;
+height:700px;
+background-image: url(Images/maps.jpeg);
+border-radius:20px;
+position:relative;
+overflow:hidden;
+box-shadow:0 0 40px black;
+}
+
+/* Animated path */
+
+.path{
+position:absolute;
+width:6px;
+background:linear-gradient(#ffd37c,#ff9c00);
+left:50%;
+top:60px;
+bottom:60px;
+transform:translateX(-50%);
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+
+from{box-shadow:0 0 5px gold;}
+to{box-shadow:0 0 25px gold;}
+
+}
+
+/* Cities */
+
+.city{
+
+position:absolute;
+width:70px;
+height:70px;
+border-radius:50%;
+background:#1e2f58;
+border:4px solid gold;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.city:hover{
+
+transform:scale(1.2);
+
+}
+
+/* city positions */
+
+.egypt{top:50px;left:50%;transform:translateX(-50%);}
+.sinai{top:180px;left:25%;}
+.jericho{top:320px;left:70%;}
+.jerusalem{top:470px;left:30%;}
+.canaan{top:610px;left:50%;transform:translateX(-50%);}
+
+/* tribe banner */
+
+.banner{
+
+position:absolute;
+top:10px;
+left:10px;
+background:#142349;
+padding:10px;
+border-radius:10px;
+
+}
+
+/* player icon */
+
+.player{
+
+position:absolute;
+width:40px;
+height:40px;
+background:gold;
+border-radius:50%;
+top:70px;
+left:50%;
+transform:translateX(-50%);
+transition:1s;
+
+}
+
+/* capture effect */
+
+.captured{
+
+background:#8b0000 !important;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="map">
+
+<div class="banner">
+
+Tribe: <span id="tribeName">Unknown</span>
+
+</div>
+
+<div class="path"></div>
+
+<div class="city egypt" onclick="battle('egypt')">🇪🇬</div>
+<div class="city sinai" onclick="battle('sinai')">⛰️</div>
+<div class="city jericho" onclick="battle('jericho')">🏛️</div>
+<div class="city jerusalem" onclick="battle('jerusalem')">🕌</div>
+<div class="city canaan" onclick="battle('canaan')">🌄</div>
+
+<div class="player" id="player"></div>
+
+</div>
+
+<script>
+
+let tribe=localStorage.getItem("tribe")||"None"
+
+document.getElementById("tribeName").innerText=tribe
+
+let player=document.getElementById("player")
+
+function battle(city){
+
+alert("Battle for "+city+" begins!")
+
+window.location="quiz.html"
+
+}
+
+/* moving player animation */
+
+let positions={
+egypt:70,
+sinai:200,
+jericho:340,
+jerusalem:500,
+canaan:640
+}
+
+function move(city){
+
+player.style.top=positions[city]+"px"
+
+}
+
+</script>
+
+</body>
+</html>

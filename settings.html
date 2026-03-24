@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings - Bible App</title>
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+ <nav class="nav-bar">
+            <span> <a href="index.html"><img src="house-line.svg" class="icons"></a><br>HOME</span>
+            <span><a href="bible.html"><img src="book-open-text.svg" class="icons"></a><br>BIBLE</span>
+            <span><a href="Tribes.html"><img src="trophy.svg" class="icons"></a><br>TRIBES</span>
+            <span><a href="games.html"><img src="game-controller.svg" class="icons"></a><br>GAMES</span>
+            <span><a href="#"><img src="sliders-horizontal (1).svg" class="icons"></a><br>SETTINGS</span>
+        </nav>
+<div class="settings-card">
+    <h2>App Settings</h2>
+
+    <div class="setting-row">
+        <span>Dark Mode</span>
+        <input type="checkbox" id="themeToggle">
+    </div>
+
+    <div class="setting-row">
+        <span>Font Size (<span id="sizeVal">16</span>px)</span>
+        <input type="range" id="fontSlider" min="14" max="30" value="16">
+    </div>
+
+    <hr>
+    
+    <div class="about-section">
+        <h3>About Bible App</h3>
+        <p>A digital space for the Tribes to gather around the Word. Version 1.1</p>
+    </div>
+</div>
+
+<script>
+    const themeToggle = document.getElementById('themeToggle');
+    const fontSlider = document.getElementById('fontSlider');
+    const sizeVal = document.getElementById('sizeVal');
+
+    // Load and Display current settings
+    function initSettings() {
+        const settings = JSON.parse(localStorage.getItem('bibleSettings')) || { dark: false, fontSize: 16 };
+        
+        themeToggle.checked = settings.dark;
+        fontSlider.value = settings.fontSize;
+        sizeVal.innerText = settings.fontSize;
+        
+        applyAndSave();
+    }
+
+    function applyAndSave() {
+        // 1. Update UI
+        document.body.classList.toggle('dark-mode', themeToggle.checked);
+        document.body.style.fontSize = fontSlider.value + 'px';
+        sizeVal.innerText = fontSlider.value;
+
+        // 2. Save to LocalStorage so other pages can see it
+        const settings = {
+            dark: themeToggle.checked,
+            fontSize: fontSlider.value
+        };
+        localStorage.setItem('bibleSettings', JSON.stringify(settings));
+    }
+
+    themeToggle.addEventListener('change', applyAndSave);
+    fontSlider.addEventListener('input', applyAndSave);
+
+    initSettings();
+</script>
+</body>
+</html>

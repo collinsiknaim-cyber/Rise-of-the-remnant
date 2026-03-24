@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0a1730;
+color:white;
+display:flex;
+justify-content:center;
+padding:40px;
+}
+
+.container{
+width:400px;
+background:#121f3c;
+border-radius:20px;
+padding:25px;
+box-shadow:0 0 25px rgba(0,0,0,.6);
+}
+
+.profile-top{
+text-align:center;
+}
+
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#444;
+margin:auto;
+}
+
+.username{
+font-size:22px;
+margin-top:10px;
+}
+
+.tribe{
+margin-top:10px;
+background:#1e335f;
+padding:10px;
+border-radius:10px;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+.stat{
+text-align:center;
+}
+
+.quiz{
+margin-top:30px;
+}
+
+.question{
+margin-top:15px;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#e7c071;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="profile-top">
+
+<div class="avatar"></div>
+
+<div class="username">Player</div>
+
+<div class="tribe" id="tribe">
+No Tribe Assigned
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3 id="level">1</h3>
+<p>Level</p>
+</div>
+
+<div class="stat">
+<h3 id="points">0</h3>
+<p>Points</p>
+</div>
+
+<div class="stat">
+<h3 id="rank">-</h3>
+<p>Rank</p>
+</div>
+
+</div>
+
+<div class="quiz">
+
+<h3>Tribe Assignment</h3>
+
+<div class="question">
+
+<p>1. What quality describes you most?</p>
+
+<select id="q1">
+<option value="judah">Leadership</option>
+<option value="benjamin">Bravery</option>
+<option value="levi">Faith</option>
+<option value="dan">Wisdom</option>
+</select>
+
+</div>
+
+<div class="question">
+
+<p>2. What would you rather do?</p>
+
+<select id="q2">
+<option value="judah">Lead people</option>
+<option value="levi">Serve God</option>
+<option value="benjamin">Fight injustice</option>
+<option value="dan">Solve problems</option>
+</select>
+
+</div>
+
+<button onclick="assignTribe()">Find My Tribe</button>
+
+</div>
+
+</div>
+
+<script>
+
+function assignTribe(){
+
+let q1=document.getElementById("q1").value
+let q2=document.getElementById("q2").value
+
+let tribes=[q1,q2]
+
+let tribe=tribes.sort((a,b)=>
+tribes.filter(v=>v===a).length
+- tribes.filter(v=>v===b).length
+).pop()
+
+let tribeNames={
+judah:"Tribe of Judah 🦁",
+benjamin:"Tribe of Benjamin 🐺",
+levi:"Tribe of Levi 🔥",
+dan:"Tribe of Dan 🦅"
+}
+
+document.getElementById("tribe").innerText=tribeNames[tribe]
+
+localStorage.setItem("tribe",tribe)
+
+}
+
+</script>
+
+</body>
+</html>

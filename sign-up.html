@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-up</title>
+    <style>
+        .background {
+            background-color: rgb(235, 240, 243);
+            /*background-image: url(Images/Gemini_Generated_Image_cy91npcy91npcy91.png);*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .main-container {
+            width: 90%;
+            max-width: 450px;
+            height: 560px;
+            /*background-image: url(Images/Gemini_Generated_Image_cy91npcy91npcy91.png);*/
+            background-color: aliceblue;
+            border-radius: 25px;
+            padding-top: 20px;
+            align-self: center;
+            text-align: center;
+            box-shadow: rgba(0,0,0,0,1);
+        }
+
+        .input-group {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        input {
+            width: 85%;
+            max-width: 500px;
+            padding: 0.8rem;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        label{
+            color:rgb(19, 19, 19);
+        }
+
+        .submit-button {
+            background-color: rgb(49, 195, 236);
+            border-radius: 10px;
+            width: 50%;
+            height: 30px;
+            padding-bottom: 5%;
+        }
+        .log-in{
+            color: rgb(29, 14, 240);
+        }
+        </style>
+        <link rel="stylesheet" href="style.css">
+    <script src="settings.js" defer></script> 
+</head>
+
+<body>
+    <center>
+        <div class="background">
+            <div class="main-container">
+                <font color="black">
+                    <h1>
+                        <font face="Algerians">RISE OF THE REMNANT</font>
+                    </h1>
+                    <h1>Sign Up</h1>
+                </font>
+                <br>
+                <div class="form">
+                    <form>
+                        <label for="text">Username</label>
+                        <div class="input-group"><input type="text" placeholder="John Doe"></div>
+                        <label for="email"> Email Address</label>
+                        <div class="input-group"><input type="email" placeholder="example@mail.com"> </div>
+                        <label for="password">Password</label>
+                        <div class="input-group"><input type="password" placeholder="••••••••"> </div>
+                        <label for="password">Confirm Password</label>
+                        <div class="input-group"><input type="password" placeholder="••••••••"></div>
+                        <br>
+                        <input type="submit" value="CREATE ACCOUNT" class="submit-button">
+                    </form>
+                    <br>
+                    Already have an account?<a href="log in.html" class="log-in">Log in</a>
+                </div>
+            </div>
+    </center>
+</body>
+
+</html>
