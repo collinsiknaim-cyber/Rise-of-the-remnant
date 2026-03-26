@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISE OF THE REMNANT - Home</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #545252;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            /* Keeps it phone-sized on desktop */
+            background-color: skyblue;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+			border-radius: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-content: center;
+        }
+
+        .card {
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        /* Daily Verse Card styling */
+        .daily-verse {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500');
+        }
+
+        .devotional {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500');
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .nav-bar {
+            position: sticky;
+            bottom: 0;
+            background-color: #1A434e;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+            border-radius: 25px;
+			text-decoration: none;
+			color: blanchedalmond
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="settings.js" defer></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <div>
+                <div style="color: #2e7d32; font-weight: bold;">RISE OF THE REMNANT</div>
+                <div id="date-today" style="font-size: 1.2rem; font-weight: bold;">Friday, October 27</div>
+                <div style="color: #666;">Good Morning, Collins!</div>
+            </div>
+            <a href="profile.html">
+                <div class="profile-icon"><img src="user-circle.svg"></div>
+            </a>
+        </div>
+
+        <section>
+            <h2 style="font-size: 1rem;">Start Your Day</h2>
+
+            <div class="card daily-verse">
+                <h3>Daily Verse</h3>
+                <p id="verse-text">Loading daily inspiration...</p>
+                <small id="verse-ref">—</small>
+                <div class="btn-group">
+                    <button class="btn">Share</button>
+                    <button class="btn">Reflect</button>
+                </div>
+            </div>
+
+            <div class="card devotional" style="margin-top: 15px;">
+                <h3>Today's Devotional</h3>
+                <p id="devotional-title">Loading devotional...</p>
+                <small id="devotional-length"></small>
+                <p id="devotional-desc"></p>
+                <div class="btn-group">
+                    <button id="devotional-read" class="btn">Read More</button>
+                </div>
+            </div>
+        </section>
+
+        <nav class="nav-bar">
+            <span> <a href="#"><img src="house-line.svg" class="icons"></a><br>HOME</span>
+            <span><a href="bible.html"><img src="book-open-text.svg" class="icons"></a><br>BIBLE</span>
+            <span><a href="#"><img src="trophy.svg" class="icons"></a><br>TRIBES</span>
+            <span><a href="#"><img src="game-controller.svg" class="icons"></a><br>GAMES</span>
+            <span><a href="settings.html"><img src="sliders-horizontal (1).svg" class="icons"></a><br>SETTINGS</span>
+        </nav>
+    </div>
+
+    <script>
+        const dateToday = document.getElementById('date-today');
+        const now = new Date();
+        dateToday.textContent = now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+
+        const dailyVerses = [
+            { text: 'For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.', ref: 'Jeremiah 29:11' },
+            { text: 'I can do all things through him who strengthens me.', ref: 'Philippians 4:13' },
+            { text: 'Trust in the Lord with all your heart, and do not lean on your own understanding.', ref: 'Proverbs 3:5' },
+            { text: 'The Lord is my shepherd; I shall not want.', ref: 'Psalm 23:1' },
+            { text: 'Be strong and courageous. Do not be frightened, and do not be dismayed, for the Lord your God is with you wherever you go.', ref: 'Joshua 1:9' }
+        ];
+
+        const devotionals = [
+            { title: 'Renew Your Mind', length: '10 min read', desc: 'Reflect on Romans 12:2: “be transformed by the renewal of your mind.” Start with prayer today.' },
+            { title: 'Walk in Peace', length: '8 min read', desc: 'Psalm 46 reminds us that God is our refuge. Pause and center your day on quiet trust.' },
+            { title: 'Trust, Don’t Worry', length: '12 min read', desc: 'Matthew 6:25-34 teaches to look to our Father for needs. Write one thing you can give to Him today.' }
+        ];
+
+        function pickByDay(list) {
+            const index = (now.getFullYear() + now.getMonth() + now.getDate()) % list.length;
+            return list[index];
+        }
+
+        function renderDailyVerse() {
+            const verse = pickByDay(dailyVerses);
+            document.getElementById('verse-text').textContent = verse.text;
+            document.getElementById('verse-ref').textContent = `— ${verse.ref}`;
+        }
+
+        function renderDevotional() {
+            const dev = pickByDay(devotionals);
+            document.getElementById('devotional-title').textContent = dev.title;
+            document.getElementById('devotional-length').textContent = dev.length;
+            document.getElementById('devotional-desc').textContent = dev.desc;
+        }
+
+        renderDailyVerse();
+        renderDevotional();
+
+        // Button actions
+        const [shareBtn, reflectBtn] = document.querySelectorAll('.daily-verse .btn-group .btn');
+        shareBtn.addEventListener('click', () => {
+            const text = `${document.getElementById('verse-text').textContent} ${document.getElementById('verse-ref').textContent}`;
+            if (navigator.share) {
+                navigator.share({ title: 'Daily Bible Verse', text });
+            } else {
+                window.prompt('Copy this verse to share:', text);
+            }
+        });
+
+        reflectBtn.addEventListener('click', () => {
+            alert('Reflection prompt: How does today’s verse guide your choices?');
+        });
+
+        document.getElementById('devotional-read').addEventListener('click', () => {
+            alert(`Read the devotional: ${document.getElementById('devotional-title').textContent}.\n\n${document.getElementById('devotional-desc').textContent}`);
+        });
+    </script>
+</body>
+
+</html>
