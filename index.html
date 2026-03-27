@@ -12,7 +12,7 @@
         }
 
         body {
-            background-color: #545252;
+            background-color: black;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -23,7 +23,7 @@
             width: 100%;
             max-width: 450px;
             /* Keeps it phone-sized on desktop */
-            background-color: skyblue;
+            background-color:black;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -69,6 +69,41 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500');
         }
 
+        .videos {
+            background-image: none;
+            background-color: #111;
+        }
+
+        .video-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .video-item {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .video-item img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .video-item span {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .video-item:hover span {
+            text-decoration: underline;
+        }
+
         .card h3 {
             margin: 0;
             font-size: 0.9rem;
@@ -101,7 +136,7 @@
         .nav-bar {
             position: sticky;
             bottom: 0;
-            background-color: #1A434e;
+            background-color: black;
             display: flex;
             justify-content: space-around;
             padding: 15px 0;
@@ -109,8 +144,9 @@
             margin-top: auto;
             border-radius: 25px;
 			text-decoration: none;
-			color: blanchedalmond
+			color: white;
         }
+        .icons{filter: brightness(0) invert(1);}
     </style>
     <link rel="stylesheet" href="style.css">
     <script src="settings.js" defer></script>
@@ -121,17 +157,17 @@
     <div class="app-container">
         <div class="header">
             <div>
-                <div style="color: #2e7d32; font-weight: bold;">RISE OF THE REMNANT</div>
-                <div id="date-today" style="font-size: 1.2rem; font-weight: bold;">Friday, October 27</div>
-                <div style="color: #666;">Good Morning, Collins!</div>
+                <div style="color: #2e747d; font-weight: bold;"><font size="5">RISE OF THE REMNANT</font></div>
+                <div id="date-today" style="font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #ddd;">Friday, October 27</div>
+                <div style="color: #666;" class="invitation" id="invitation-text"></div>
             </div>
-            <a href="profile.html">
+            <a href="#">
                 <div class="profile-icon"><img src="user-circle.svg"></div>
             </a>
         </div>
 
         <section>
-            <h2 style="font-size: 1rem;">Start Your Day</h2>
+            <h2 style="font-size: 1rem; text-decoration: none; color: #ddd;">Start Your Day</h2>
 
             <div class="card daily-verse">
                 <h3>Daily Verse</h3>
@@ -150,6 +186,24 @@
                 <p id="devotional-desc"></p>
                 <div class="btn-group">
                     <button id="devotional-read" class="btn">Read More</button>
+                </div>
+            </div>
+
+            <div class="card videos" style="margin-top: 15px;">
+                <h3>Bible Story Videos</h3>
+                <div class="video-grid">
+                    <a class="video-item" href="https://www.youtube.com/watch?v=ueh1sErHPeg" target="_blank" rel="noreferrer">
+                        <img src="https://img.youtube.com/vi/ueh1sErHPeg/hqdefault.jpg" alt="The Good Samaritan video cover">
+                        <span>The Good Samaritan</span>
+                    </a>
+                    <a class="video-item" href="https://www.youtube.com/watch?v=Gg7_TUO7EpA" target="_blank" rel="noreferrer">
+                        <img src="https://img.youtube.com/vi/Gg7_TUO7EpA/hqdefault.jpg" alt="David and Goliath video cover">
+                        <span>David and Goliath</span>
+                    </a>
+                    <a class="video-item" href="https://www.youtube.com/watch?v=pT5qO-lekmE" target="_blank" rel="noreferrer">
+                        <img src="https://img.youtube.com/vi/pT5qO-lekmE/hqdefault.jpg" alt="Noah's Ark video cover">
+                        <span>Noah's Ark</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -177,10 +231,12 @@
         ];
 
         const devotionals = [
-            { title: 'Renew Your Mind', length: '10 min read', desc: 'Reflect on Romans 12:2: “be transformed by the renewal of your mind.” Start with prayer today.' },
-            { title: 'Walk in Peace', length: '8 min read', desc: 'Psalm 46 reminds us that God is our refuge. Pause and center your day on quiet trust.' },
-            { title: 'Trust, Don’t Worry', length: '12 min read', desc: 'Matthew 6:25-34 teaches to look to our Father for needs. Write one thing you can give to Him today.' }
+            { title: 'Renew Your Mind', length: '10 min read', desc: 'Reflect on Romans 12:2: “be transformed by the renewal of your mind.” Start with prayer today.', book: 'Romans', chapter: '12' },
+            { title: 'Walk in Peace', length: '8 min read', desc: 'Psalm 46 reminds us that God is our refuge. Pause and center your day on quiet trust.', book: 'Psalms', chapter: '46' },
+            { title: 'Trust, Don’t Worry', length: '12 min read', desc: 'Matthew 6:25-34 teaches to look to our Father for needs. Write one thing you can give to Him today.', book: 'Matthew', chapter: '6' }
         ];
+
+        let currentDevotional = null;
 
         function pickByDay(list) {
             const index = (now.getFullYear() + now.getMonth() + now.getDate()) % list.length;
@@ -195,6 +251,7 @@
 
         function renderDevotional() {
             const dev = pickByDay(devotionals);
+            currentDevotional = dev;
             document.getElementById('devotional-title').textContent = dev.title;
             document.getElementById('devotional-length').textContent = dev.length;
             document.getElementById('devotional-desc').textContent = dev.desc;
@@ -219,7 +276,12 @@
         });
 
         document.getElementById('devotional-read').addEventListener('click', () => {
-            alert(`Read the devotional: ${document.getElementById('devotional-title').textContent}.\n\n${document.getElementById('devotional-desc').textContent}`);
+            if (currentDevotional && currentDevotional.book && currentDevotional.chapter) {
+                const targetUrl = `bible.html?book=${encodeURIComponent(currentDevotional.book)}&chapter=${encodeURIComponent(currentDevotional.chapter)}`;
+                window.location.href = targetUrl;
+            } else {
+                alert('Unable to locate the devotional chapter in the Bible reader.');
+            }
         });
     </script>
 </body>
