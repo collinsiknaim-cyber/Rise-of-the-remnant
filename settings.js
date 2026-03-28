@@ -19,6 +19,3 @@ function applyGlobalSettings() {
 
 // Run immediately when the script loads
 applyGlobalSettings();
-        </script>
-    <link rel="stylesheet" href="style.css">
-    <script src="global-settings.js" defer>

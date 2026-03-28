@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISE OF THE REMNANT - Home</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            /* Keeps it phone-sized on desktop */
+            background-color:black;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+			border-radius: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-content: center;
+        }
+
+        .card {
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        /* Daily Verse Card styling */
+        .daily-verse {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500');
+        }
+
+        .devotional {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500');
+        }
+
+        .videos {
+            background-image: none;
+            background-color: #111;
+        }
+
+        .video-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .video-item {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .video-item img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .video-item span {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .video-item:hover span {
+            text-decoration: underline;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .nav-bar {
+            position: sticky;
+            bottom: 0;
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+            border-radius: 25px;
+			text-decoration: none;
+			color: white;
+        }
+        .icons{filter: brightness(0) invert(1);}
+        #splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #1a1a1a; /* Matches your dark theme */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Must be higher than your nav bar */
+    transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.splash-logo {
+    width: 120px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+/* Optional: Fade out class */
+.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="settings.js" defer></script>
+</head>
+
+<body>
+    <div id="splash-screen">
+    <div class="splash-content">
+        <img src="logo.png" alt="App Logo" class="splash-logo">
+        <div class="loader"><font color="sky-blue">Your bible is loading...✌️</font></div>
+    </div>
+</div>
+
+    <div class="app-container">
+        <div class="header">
+            <div>
+                <div style="color: #2e747d; font-weight: bold;"><font size="5">RISE OF THE REMNANT</font></div>
+                <div id="date-today" style="font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #ddd;">Friday, October 27</div>
+                <div style="color: #666;" class="invitation" id="invitation-text"></div>
+            </div>
+            <a href="#">
+                <div class="profile-icon"><img src="user-circle.svg"></div>
+            </a>
+        </div>
+
+        <section>
+            <h2 style="font-size: 1rem; text-decoration: none; color: #ddd;">Start Your Day</h2>
+
+            <div class="card daily-verse">
+                <h3>Daily Verse</h3>
+                <p id="verse-text">Loading daily inspiration...</p>
+                <small id="verse-ref">—</small>
+                <div class="btn-group">
+                    <button class="btn">Share</button>
+                    <button class="btn">Reflect</button>
+                </div>
+            </div>
+
+            <div class="card devotional" style="margin-top: 15px;">
+                <h3>Today's Devotional</h3>
+                <p id="devotional-title">Loading devotional...</p>
+                <small id="devotional-length"></small>
+                <p id="devotional-desc"></p>
+                <div class="btn-group">
+                    <button id="devotional-read" class="btn">Read More</button>
+                </div>
+            </div>
+
+            <div class="card videos" style="margin-top: 15px;">
+                <h3>Bible Story Videos</h3>
+                <div class="video-grid">
+                    <a class="video-item" href="https://www.youtube.com/watch?v=ueh1sErHPeg" target="_blank" rel="noreferrer">
+                        <img src="https://img.youtube.com/vi/ueh1sErHPeg/hqdefault.jpg" alt="The Good Samaritan video cover">
+                        <span>The Good Samaritan</span>
+                    </a>
+                    <a class="video-item" href="https://www.youtube.com/watch?v=Gg7_TUO7EpA" target="_blank" rel="noreferrer">
+                        <img src="https://img.youtube.com/vi/Gg7_TUO7EpA/hqdefault.jpg" alt="David and Goliath video cover">
+                        <span>David and Goliath</span>
+                    </a>
+                    <a class="video-item" href="https://www.youtube.com/watch?v=pT5qO-lekmE" target="_blank" rel="noreferrer">
+                        <img src="https://img.youtube.com/vi/pT5qO-lekmE/hqdefault.jpg" alt="Noah's Ark video cover">
+                        <span>Noah's Ark</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <nav class="nav-bar">
+            <span> <a href="#"><img src="house-line.svg" class="icons"></a><br>HOME</span>
+            <span><a href="bible.html"><img src="book-open-text.svg" class="icons"></a><br>BIBLE</span>
+            <span><a href="#"><img src="trophy.svg" class="icons"></a><br>TRIBES</span>
+            <span><a href="#"><img src="game-controller.svg" class="icons"></a><br>GAMES</span>
+            <span><a href="settings.html"><img src="sliders-horizontal (1).svg" class="icons"></a><br>SETTINGS</span>
+        </nav>
+    </div>
+
+    <script>
+        const dateToday = document.getElementById('date-today');
+        const now = new Date();
+        dateToday.textContent = now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+
+        const dailyVerses = [
+            { text: 'For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.', ref: 'Jeremiah 29:11' },
+            { text: 'I can do all things through him who strengthens me.', ref: 'Philippians 4:13' },
+            { text: 'Trust in the Lord with all your heart, and do not lean on your own understanding.', ref: 'Proverbs 3:5' },
+            { text: 'The Lord is my shepherd; I shall not want.', ref: 'Psalm 23:1' },
+            { text: 'Be strong and courageous. Do not be frightened, and do not be dismayed, for the Lord your God is with you wherever you go.', ref: 'Joshua 1:9' }
+        ];
+
+        const devotionals = [
+            { title: 'Renew Your Mind', length: '10 min read', desc: 'Reflect on Romans 12:2: “be transformed by the renewal of your mind.” Start with prayer today.', book: 'Romans', chapter: '12' },
+            { title: 'Walk in Peace', length: '8 min read', desc: 'Psalm 46 reminds us that God is our refuge. Pause and center your day on quiet trust.', book: 'Psalms', chapter: '46' },
+            { title: 'Trust, Don’t Worry', length: '12 min read', desc: 'Matthew 6:25-34 teaches to look to our Father for needs. Write one thing you can give to Him today.', book: 'Matthew', chapter: '6' }
+        ];
+
+        let currentDevotional = null;
+
+        function pickByDay(list) {
+            const index = (now.getFullYear() + now.getMonth() + now.getDate()) % list.length;
+            return list[index];
+        }
+
+        function renderDailyVerse() {
+            const verse = pickByDay(dailyVerses);
+            document.getElementById('verse-text').textContent = verse.text;
+            document.getElementById('verse-ref').textContent = `— ${verse.ref}`;
+        }
+
+        function renderDevotional() {
+            const dev = pickByDay(devotionals);
+            currentDevotional = dev;
+            document.getElementById('devotional-title').textContent = dev.title;
+            document.getElementById('devotional-length').textContent = dev.length;
+            document.getElementById('devotional-desc').textContent = dev.desc;
+        }
+
+        renderDailyVerse();
+        renderDevotional();
+
+        // Button actions
+        const [shareBtn, reflectBtn] = document.querySelectorAll('.daily-verse .btn-group .btn');
+        shareBtn.addEventListener('click', () => {
+            const text = `${document.getElementById('verse-text').textContent} ${document.getElementById('verse-ref').textContent}`;
+            if (navigator.share) {
+                navigator.share({ title: 'Daily Bible Verse', text });
+            } else {
+                window.prompt('Copy this verse to share:', text);
+            }
+        });
+
+        reflectBtn.addEventListener('click', () => {
+            alert('Reflection prompt: How does today’s verse guide your choices?');
+        });
+
+        document.getElementById('devotional-read').addEventListener('click', () => {
+            if (currentDevotional && currentDevotional.book && currentDevotional.chapter) {
+                const targetUrl = `bible.html?book=${encodeURIComponent(currentDevotional.book)}&chapter=${encodeURIComponent(currentDevotional.chapter)}`;
+                window.location.href = targetUrl;
+            } else {
+                alert('Unable to locate the devotional chapter in the Bible reader.');
+            }
+        });
+        window.addEventListener("load", () => {
+    const splash = document.getElementById("splash-screen");
+    
+    // Add a slight delay (e.g., 1 second) so the user actually sees your nice icon
+    setTimeout(() => {
+        splash.classList.add("fade-out");
+    }, 2000);
+});
+    </script>
+</body>
+
+</html>

@@ -2,8 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Bible App</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .settings-card {
+            width: min(95%, 460px);
+            max-width: 460px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .about-section {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 40px);
+            max-width: 460px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
 <body>
  <nav class="nav-bar">
             <span> <a href="index.html"><img src="house-line.svg" class="icons"></a><br>HOME</span>
@@ -27,6 +77,10 @@
 
     <hr>
     
+    <div id="connection-warning" style="display: none; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 8px; padding: 10px; margin-bottom: 16px;">
+        Best experience: open this file directly (file://) or use a local server (python -m http.server). If you see localhost errors, stop using http://localhost until server is running.
+    </div>
+
     <div class="about-section">
         <h3>About Bible App</h3>
         <p>A digital space for the Tribes to gather around the Word. Version 1.1</p>
@@ -67,6 +121,12 @@
     fontSlider.addEventListener('input', applyAndSave);
 
     initSettings();
+
+    const warningEl = document.getElementById('connection-warning');
+    if (window.location.protocol !== 'file:') {
+        warningEl.style.display = 'block';
+    }
 </script>
+<script src="settings.js" defer></script>
 </body>
 </html>

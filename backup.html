@@ -129,84 +129,6 @@
             cursor: pointer;
         }
 
-        .share-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            padding: 20px;
-            visibility: hidden;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-            z-index: 1000;
-        }
-
-        .share-overlay.show {
-            visibility: visible;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .share-panel {
-            width: 100%;
-            max-width: 450px;
-            background: #111;
-            border-radius: 24px 24px 0 0;
-            padding: 20px;
-            box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.35);
-        }
-
-        .share-panel h3 {
-            margin: 0 0 12px;
-            font-size: 1rem;
-            letter-spacing: 0.02em;
-        }
-
-        .share-preview {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 14px;
-            border-radius: 16px;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            margin-bottom: 16px;
-        }
-
-        .share-buttons {
-            display: grid;
-            gap: 10px;
-        }
-
-        .share-btn {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 18px;
-            border: none;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .share-btn.whatsapp { background: #25d366; color: #000; }
-        .share-btn.telegram { background: #0088cc; }
-        .share-btn.instagram { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4); }
-        .share-btn.copy { background: rgba(255, 255, 255, 0.12); }
-        .share-panel .close-share {
-            margin-top: 14px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.12);
-            color: #fff;
-        }
-
         .nav-bar {
             position: sticky;
             bottom: 0;
@@ -342,19 +264,6 @@
                     <button class="btn">Reflect</button>
                 </div>
             </div>
-            <div id="share-options" class="share-overlay">
-                <div class="share-panel">
-                    <h3>Share today’s verse</h3>
-                    <div id="share-preview" class="share-preview"></div>
-                    <div class="share-buttons">
-                        <a id="whatsapp-share" class="share-btn whatsapp" target="_blank" rel="noopener">WhatsApp</a>
-                        <a id="telegram-share" class="share-btn telegram" target="_blank" rel="noopener">Telegram</a>
-                        <a id="instagram-share" class="share-btn instagram" target="_blank" rel="noopener">Instagram</a>
-                        <button id="copy-share" class="share-btn copy" type="button">Copy text</button>
-                    </div>
-                    <button id="close-share" class="btn close-share" type="button">Close</button>
-                </div>
-            </div>
             <div class="card devotional" style="margin-top: 15px;">
                 <h3>Today's Devotional</h3>
                 <p id="devotional-title">Loading devotional...</p>
@@ -417,7 +326,7 @@
         <img src="magnifying-glass.svg" class="icons">
         <span>Discover</span>
     </a>
-    <a href="profile.html" class="nav-item">
+    <a href="#" class="nav-item" onclick="showPage('profile')">
         <img src="user-circle.svg" class="icons">
         <span>Profile</span>
     </a>
@@ -468,63 +377,13 @@
 
         // Button actions
         const [shareBtn, reflectBtn] = document.querySelectorAll('.daily-verse .btn-group .btn');
-        const shareOverlay = document.getElementById('share-options');
-        const sharePreview = document.getElementById('share-preview');
-        const whatsappShare = document.getElementById('whatsapp-share');
-        const telegramShare = document.getElementById('telegram-share');
-        const instagramShare = document.getElementById('instagram-share');
-        const copyShareBtn = document.getElementById('copy-share');
-        const closeShareBtn = document.getElementById('close-share');
-
-        function getFormattedVerseText() {
-            const text = document.getElementById('verse-text').textContent.trim();
-            const ref = document.getElementById('verse-ref').textContent.trim();
-            return `“${text}”\n\n${ref}\n\nSent from Rise of the Remnant.`;
-        }
-
-        function openSharePanel() {
-            const text = getFormattedVerseText();
+        shareBtn.addEventListener('click', () => {
+            const text = `${document.getElementById('verse-text').textContent} ${document.getElementById('verse-ref').textContent}`;
             if (navigator.share) {
-                navigator.share({
-                    title: 'Daily Bible Verse',
-                    text,
-                    url: window.location.href
-                }).catch(err => {
-                    console.warn('Native share canceled or unavailable', err);
-                });
-                return;
-            }
-
-            const encodedText = encodeURIComponent(text);
-            const encodedUrl = encodeURIComponent(window.location.href);
-            whatsappShare.href = `https://api.whatsapp.com/send?text=${encodedText}`;
-            telegramShare.href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`;
-            instagramShare.href = 'https://www.instagram.com/';
-            sharePreview.textContent = text;
-            shareOverlay.classList.add('show');
-        }
-
-        function closeSharePanel() {
-            shareOverlay.classList.remove('show');
-        }
-
-        shareBtn.addEventListener('click', openSharePanel);
-        closeShareBtn.addEventListener('click', closeSharePanel);
-        shareOverlay.addEventListener('click', e => {
-            if (e.target === shareOverlay) {
-                closeSharePanel();
-            }
-        });
-
-        copyShareBtn.addEventListener('click', () => {
-            const text = getFormattedVerseText();
-            navigator.clipboard.writeText(text).then(() => {
-                const original = copyShareBtn.textContent;
-                copyShareBtn.textContent = 'Copied!';
-                setTimeout(() => copyShareBtn.textContent = original, 1500);
-            }).catch(() => {
+                navigator.share({ title: 'Daily Bible Verse', text });
+            } else {
                 window.prompt('Copy this verse to share:', text);
-            });
+            }
         });
 
         reflectBtn.addEventListener('click', () => {
