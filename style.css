@@ -8,8 +8,75 @@ body.dark-mode {
     --text-color: #e0e0e0;
 }
 
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background 0.3s, color 0.3s;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+img, video, canvas, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button, input, textarea, select {
+    max-width: 100%;
+}
+
+.app-container,
+.main-container,
+.background,
+.page-shell,
+.container,
+.settings-card {
+    width: min(100%, 450px);
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+@media (max-width: 520px) {
+    body {
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+
+    .app-container,
+    .main-container,
+    .background,
+    .page-shell,
+    .container,
+    .settings-card {
+        width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .button-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .bottom-nav,
+    .nav-bar {
+        width: calc(100% - 16px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
