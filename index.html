@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RISE OF THE REMNANT - Home</title>
-    <style>
+    <title>Home</title>
+       <style>
+        /*Home container styling*/
         * {
             box-sizing: border-box;
             font-family: 'Segoe UI', sans-serif;
@@ -172,19 +172,77 @@
     opacity: 0;
     visibility: hidden;
 }
+/*Bible container styling */
+       .container{ background-color: rgb(39, 37, 37); padding: 20px; border-radius: 20px; width: 100%; max-width: 800px; margin-top: 0;}
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; background-color: rgb(101, 96, 96); }
+        .controls { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+        .verse { margin-bottom: 12px; background: rgb(39, 37, 37); padding: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(39, 37, 37); text-decoration: none; color: aliceblue;}
+        .verse-number { font-weight: bold; color: #2fa4d3; margin-right: 10px; font-size: 0.85em; }
+        #loading { color: #555; font-style: italic; }
+        h1 { color: #333; }
+         .nav-hidden {
+            position: sticky;
+            bottom: 0;
+            background:rgb(39, 37, 37);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+            /*border-radius: 25px;*/
+            width: 100%;
+            transition: top 0.3s ease;
+            z-index: 9999;
+
+        }
+        .back-button{
+            filter: brightness(0) invert(1);
+        }
+        .icons{
+            filter: brightness(0) invert(1);
+        }
+        .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #1a1a1a; /* Matches your dark theme */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #333;
+    z-index: 1000;
+    /* This ensures it stays still on mobile browsers */
+    padding-bottom: env(safe-area-inset-bottom); 
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #888;
+    font-size: 12px;
+}
+
+.nav-item img {
+    width: 24px;
+    margin-bottom: 4px;
+    /* Use the filter method we discussed to make them white */
+    filter: brightness(0) invert(1);
+}
+
+/* Add space at the bottom of your content */
+.container {
+    padding-bottom: 80px; 
+}
     </style>
-    <link rel="stylesheet" href="style.css">
-    <script src="settings.js" defer></script>
 </head>
-
 <body>
-    <div id="splash-screen">
-    <div class="splash-content">
-        <img src="logo.png" alt="App Logo" class="splash-logo">
-        <div class="loader"><font color="sky-blue">Your bible is loading...✌️</font></div>
-    </div>
-</div>
-
+<div  class="main-container">
+<section  id="home" class="page">
     <div class="app-container">
         <div class="header">
             <div>
@@ -219,8 +277,28 @@
                     <button id="devotional-read" class="btn">Read More</button>
                 </div>
             </div>
+        </section>
+    </div>
+</section>
+<section class="page" id="bible">
+<div class="container">
+    <div>
+        <div>
+      <a href="index.html" class="back-button"><img src="arrow-circle-left.svg"></a>
+        </div>
+ 
+    <h1 style="text-decoration: none; color: #ddd;">HOLY BIBLE NIV VERSION </h1>
+    <div class="controls">
+        <select id="bookSelect"><option>Loading Books...</option></select>
+        <select id="chapterSelect"></select>
+    </div>
 
-            <div class="card videos" style="margin-top: 15px;">
+    <div id="loading"><video autoplay muted loop><source src="loading.mp4" type="video/mp4"></video></div>
+    <div id="bible-container"></div>
+</div>
+ </section>
+<section class="page" id="discover">
+<div class="card videos" style="margin-top: 15px;">
                 <h3>Bible Story Videos</h3>
                 <div class="video-grid">
                     <a class="video-item" href="https://www.youtube.com/watch?v=ueh1sErHPeg" target="_blank" rel="noreferrer">
@@ -236,20 +314,29 @@
                         <span>Noah's Ark</span>
                     </a>
                 </div>
-            </div>
-        </section>
+</section>
 
-        <nav class="nav-bar">
-            <span> <a href="#"><img src="house-line.svg" class="icons"></a><br>HOME</span>
-            <span><a href="bible.html"><img src="book-open-text.svg" class="icons"></a><br>BIBLE</span>
-            <span><a href="#"><img src="trophy.svg" class="icons"></a><br>TRIBES</span>
-            <span><a href="#"><img src="game-controller.svg" class="icons"></a><br>GAMES</span>
-            <span><a href="settings.html"><img src="sliders-horizontal (1).svg" class="icons"></a><br>SETTINGS</span>
-        </nav>
-    </div>
-
-    <script>
-        const dateToday = document.getElementById('date-today');
+<nav class="bottom-nav">
+    <a href="#" class="nav-item" onclick="showPage('home')">
+        <img src="house-line.svg" class="icons">
+        <span>Home</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('bible')">
+        <img src="book-open-text.svg" class="icons">
+        <span>Bible</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('discover')">
+        <img src="magnifying-glass.svg" class="icons">
+        <span>Discover</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('profile')">
+        <img src="user-circle.svg" class="icons">
+        <span>Profile</span>
+    </a>
+</nav>
+            
+ <script>
+      const dateToday = document.getElementById('date-today');
         const now = new Date();
         dateToday.textContent = now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
 
@@ -322,7 +409,115 @@
         splash.classList.add("fade-out");
     }, 2000);
 });
-    </script>
-</body>
 
+ // CRITICAL: The URL must be the "RAW" version for fetch to work
+        const RAW_URL = 'https://raw.githubusercontent.com/Amosamevor/Bible-json/main/versions/en/NEW%20INTERNATIONAL%20VERSION.json';
+        
+        const bookSelect = document.getElementById('bookSelect');
+        const chapterSelect = document.getElementById('chapterSelect');
+        const bibleContainer = document.getElementById('bible-container');
+        const loadingText = document.getElementById('loading');
+
+        let bibleData = null;
+
+        async function initApp() {
+            try {
+                const response = await fetch(RAW_URL);
+                if (!response.ok) throw new Error("Failed to fetch JSON");
+                
+                bibleData = await response.json();
+                loadingText.style.display = 'none';
+
+                // 1. Fill the Book dropdown
+                bookSelect.innerHTML = '';
+                Object.keys(bibleData).forEach(book => {
+                    const option = document.createElement('option');
+                    option.value = book;
+                    option.textContent = book;
+                    bookSelect.appendChild(option);
+                });
+
+                // 2. Setup listeners
+                bookSelect.addEventListener('change', updateChapters);
+                chapterSelect.addEventListener('change', displayVerses);
+
+                const params = new URLSearchParams(window.location.search);
+                const requestedBook = params.get('book');
+                const requestedChapter = params.get('chapter');
+
+                if (requestedBook && bibleData[requestedBook]) {
+                    bookSelect.value = requestedBook;
+                }
+
+                // Initial Load
+                updateChapters();
+
+                if (requestedChapter) {
+                    const chapterOption = Array.from(chapterSelect.options).find(option => option.value === requestedChapter);
+                    if (chapterOption) {
+                        chapterSelect.value = requestedChapter;
+                        displayVerses();
+                    }
+                }
+
+            } catch (error) {
+                loadingText.innerText = "Error: Check your internet connection.";
+                console.error(error);
+            }
+        }
+
+        function updateChapters() {
+            const selectedBook = bookSelect.value;
+            const chapters = bibleData[selectedBook];
+            
+            chapterSelect.innerHTML = '';
+            Object.keys(chapters).forEach(chapNum => {
+                const option = document.createElement('option');
+                option.value = chapNum;
+                option.textContent = `Chapter ${chapNum}`;
+                chapterSelect.appendChild(option);
+            });
+
+            displayVerses();
+        }
+
+        function displayVerses() {
+            const book = bookSelect.value;
+            const chapter = chapterSelect.value;
+            const verses = bibleData[book][chapter];
+
+            bibleContainer.innerHTML = '';
+            
+            // Map through the verses object
+            Object.entries(verses).forEach(([number, text]) => {
+                const p = document.createElement('p');
+                p.className = 'verse';
+                p.innerHTML = `<span class="verse-number">${number}</span> ${text}`;
+                bibleContainer.appendChild(p);
+            });
+
+            // Scroll to top when chapter changes
+            window.scrollTo(0, 0);
+        }
+
+        initApp();
+        function showPage(pageId) {
+    // Hide all pages
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.style.display = 'none');
+
+    // Show selected page
+    const activePage = document.getElementById(pageId);
+    if (activePage) {
+        activePage.style.display = 'block';
+    }
+
+    // Optional: Highlight the active icon
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.style.opacity = "0.5";
+    });
+    // This part is tricky without IDs on links, but good for UX!
+}
+</script>
+</body>
 </html>
