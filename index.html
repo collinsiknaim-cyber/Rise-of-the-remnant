@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+	<script src="userDatabase.js" defer></script>
        <style>
         /*Home container styling*/
         * {
@@ -64,6 +66,61 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500');
         }
 /* Discover Videos styling */
+/* 1. Main Section Container (Based on your inline styles in the photo) */
+.card1.videos {
+    margin-top: 15px;
+    width: 100%;
+    max-width: 450px;
+    background-color: black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+}
+
+/* 2. The Video Grid (The container for your <a> tags) */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */
+    gap: 15px; /* Space between the video items */
+    width: 100%;
+}
+
+/* 3. Each Video Item (The <a> tag) */
+.video-item {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Keeps text aligned to the left under the image */
+    transition: transform 0.2s ease;
+}
+
+.video-item:active {
+    transform: scale(0.95); /* Shrinks slightly when tapped on mobile */
+}
+
+/* 4. The YouTube Thumbnail */
+.video-item img {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Keeps the standard YouTube video shape */
+    object-fit: cover;
+    border-radius: 12px; /* Smooth rounded corners */
+    border: 1px solid #333; /* Suble border to define edges against black bg */
+    margin-bottom: 8px;
+}
+
+/* 5. The Video Title (The <span> tag) */
+.video-item span {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    display: -webkit-box; /* This block handles long titles */
+    -webkit-line-clamp: 2; /* Shows max 2 lines then adds "..." */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
         .videos {
             background-image: none;
             background-color: #111;
@@ -97,7 +154,7 @@
 
         .video-item:hover span {
             text-decoration: none;
-            color: red;
+            color: rgb(68, 223, 240);
         }
 
         .card h3 {
@@ -205,6 +262,7 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.12);
             color: #fff;
+            border-radius: 25%;
         }
 
         .nav-bar {
@@ -314,7 +372,228 @@
 .page.active{
     display: block;}
 
+/*Profile container styling*/
+:root {
+			color-scheme: dark;
+		}
 
+		* {
+			box-sizing: border-box;
+		}
+
+		/*body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: radial-gradient(circle at top, rgba(79, 126, 245, 0.14), transparent 30%),
+				linear-gradient(180deg, #070b14 0%, #0f1727 40%, #111827 100%);
+			color: #e7eef7;
+			display: flex;
+			justify-content: center;
+			padding: 24px 16px 40px;
+		}
+*/
+		.page-shell {
+			width: 100%;
+            max-width: 450px;
+            /* Keeps it phone-sized on desktop */
+            background-color:black;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100vh;
+		}
+
+		.top-bar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 22px;
+		}
+
+		.top-bar h1 {
+			margin: 0;
+			font-size: 1.5rem;
+			letter-spacing: -0.02em;
+		}
+
+		.top-bar p {
+			margin: 4px 0 0;
+			color: #94a3b8;
+			font-size: 0.95rem;
+		}
+
+		.card {
+			background: rgba(15, 23, 42, 0.96);
+			border: 1px solid rgba(148, 163, 184, 0.12);
+			border-radius: 28px;
+			box-shadow: 0 24px 60px rgba(15, 23, 42, 0.4);
+			padding: 24px;
+			margin-bottom: 18px;
+			backdrop-filter: blur(14px);
+		}
+
+		.profile-photo-card {
+			text-align: center;
+		}
+
+		.profile-photo-title {
+			margin: 0 0 16px;
+			font-size: 1rem;
+			letter-spacing: 0.02em;
+			color: #cbd5e1;
+		}
+
+		.photo-circle {
+			position: relative;
+			width: 130px;
+			height: 130px;
+			margin: 0 auto 16px;
+			border-radius: 50%;
+			background: linear-gradient(180deg, rgba(148, 163, 184, 0.16), rgba(148, 163, 184, 0.04));
+			border: 1px solid rgba(148, 163, 184, 0.22);
+			display: grid;
+			place-items: center;
+			overflow: hidden;
+		}
+
+		.photo-circle img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.upload-action {
+			position: absolute;
+			right: 8px;
+			bottom: 8px;
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			background: #f97316;
+			display: grid;
+			place-items: center;
+			cursor: pointer;
+			box-shadow: 0 10px 20px rgba(249, 115, 22, 0.28);
+		}
+
+		.upload-action input {
+			display: none;
+		}
+
+		.upload-action::before {
+			content: 'F4F7';
+			font-size: 0.95rem;
+			color: #fff;
+		}
+
+		.photo-caption {
+			margin: 0;
+			color: #94a3b8;
+			font-size: 0.9rem;
+			line-height: 1.6;
+		}
+
+		.info-card h2 {
+			margin: 0 0 6px;
+			font-size: 1.05rem;
+		}
+
+		.info-card p {
+			margin: 0;
+			color: #94a3b8;
+			font-size: 0.93rem;
+			line-height: 1.7;
+		}
+
+		.info-list {
+			margin-top: 18px;
+			display: grid;
+			gap: 12px;
+		}
+
+		.info-item {
+			display: grid;
+			gap: 6px;
+			padding: 14px 16px;
+			background: rgba(148, 163, 184, 0.06);
+			border: 1px solid rgba(148, 163, 184, 0.12);
+			border-radius: 18px;
+		}
+
+		.info-item label {
+			font-size: 0.8rem;
+			color: #94a3b8;
+		}
+
+		.info-item strong {
+			font-size: 0.98rem;
+			color: #f8fafc;
+			word-break: break-word;
+		}
+
+		.button-row {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			margin-top: 22px;
+		}
+
+		.button-row button,
+		.button-row a {
+			border: none;
+			border-radius: 999px;
+			padding: 12px 18px;
+			background: #2563eb;
+			color: #fff;
+			cursor: pointer;
+			text-decoration: none;
+			transition: transform 0.2s ease, background 0.2s ease;
+		}
+
+		.button-row button:hover,
+		.button-row a:hover {
+			transform: translateY(-1px);
+			background: #1d4ed8;
+		}
+
+		.button-row .secondary {
+			background: rgba(148, 163, 184, 0.12);
+			color: #e2e8f0;
+		}
+
+		.signed-out {
+			display: none;
+			text-align: center;
+			padding: 28px;
+		}
+
+		.signed-out h2 {
+			margin: 0 0 10px;
+			font-size: 1.6rem;
+		}
+
+		.signed-out p {
+			margin: 0 0 22px;
+			color: #94a3b8;
+			line-height: 1.7;
+		}
+
+		@media (max-width: 460px) {
+			body {
+				padding: 18px 12px 30px;
+			}
+
+			.card {
+				padding: 20px;
+			}
+
+			.profile-top {
+				flex-direction: column;
+				gap: 14px;
+			}
+		}
 
     </style>
 </head>
@@ -386,8 +665,15 @@
 </div>
  </section>
 <section class="page" id="discover">
-<div class="card videos" style="margin-top: 15px;">
-                <h3>Bible Story Videos</h3>
+<div class="card1 videos" style="margin-top: 15px;  width: 100%;
+            max-width: 450px;
+            /* Keeps it phone-sized on desktop */
+            background-color:black;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;">
+                <h3 style="text-decoration: none; color: #e75656;"> YouTube Bible Story Videos</h3>
                 <div class="video-grid">
                     <a class="video-item" href="https://www.youtube.com/watch?v=ueh1sErHPeg" target="_blank" rel="noreferrer">
                         <img src="https://img.youtube.com/vi/ueh1sErHPeg/hqdefault.jpg" alt="The Good Samaritan video cover">
@@ -401,7 +687,113 @@
                         <img src="https://img.youtube.com/vi/pT5qO-lekmE/hqdefault.jpg" alt="Noah's Ark video cover">
                         <span>Noah's Ark</span>
                     </a>
+                    <a class="video-item" href="https://www.youtube.com/watch?v=qtGSUNfwXds" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/qtGSUNfwXds/hqdefault.jpg" alt="David and Goliath video cover">
+    <span>David and Goliath</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=tPcuwZ8FGP4" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/tPcuwZ8FGP4/hqdefault.jpg" alt="Jonah and the Whale video cover">
+    <span>Jonah and the Whale</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=eywIAaKaHUU" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/eywIAaKaHUU/hqdefault.jpg" alt="Daniel and the Lions' Den video cover">
+    <span>Daniel and the Lions' Den</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=m6EuClS7P-I" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/m6EuClS7P-I/hqdefault.jpg" alt="Cain and Abel video cover">
+    <span>Cain and Abel</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=teu7BCZTgDs" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/teu7BCZTgDs/hqdefault.jpg" alt="The Story of Creation video cover">
+    <span>The Story of Creation</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=279P028u9vI" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/279P028u9vI/hqdefault.jpg" alt="Moses and the Ten Plagues video cover">
+    <span>Moses and the Ten Plagues</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=v3656G6zW_U" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/v3656G6zW_U/hqdefault.jpg" alt="The Birth of Jesus video cover">
+    <span>The Birth of Jesus</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=VAsX_m9v0_c" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/VAsX_m9v0_c/hqdefault.jpg" alt="Samson and Delilah video cover">
+    <span>Samson and Delilah</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=N6T6X4x4Qio" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/N6T6X4x4Qio/hqdefault.jpg" alt="Queen Esther video cover">
+    <span>Queen Esther</span>
+</a>
+
+<a class="video-item" href="https://www.youtube.com/watch?v=XshmU40Zf50" target="_blank" rel="noreferrer">
+    <img src="https://img.youtube.com/vi/XshmU40Zf50/hqdefault.jpg" alt="The Prodigal Son video cover">
+    <span>The Prodigal Son</span>
+</a>
                 </div>
+</div>
+</section>
+<section class="page" id="profile">
+<div class="page-shell">
+		<div class="top-bar">
+			<div>
+				<h1>Profile</h1>
+				<p>Manage your account</p>
+			</div>
+			<button class="secondary" type="button" onclick="window.location.href='index.html'">Back</button>
+		</div>
+
+		<section id="signed-out" class="signed-out">
+			<h2>Welcome back.</h2>
+			<p>Sign in or create an account to manage your profile and upload a photo.</p>
+			<div class="button-row" style="justify-content:center;">
+				<button type="button" onclick="window.location.href='log in.html'">Log In</button>
+				<button class="secondary" type="button" onclick="window.location.href='sign-up.html'">Sign Up</button>
+			</div>
+		</section>
+
+		<section id="profile-card" class="card">
+			<div class="profile-photo-card">
+				<div class="profile-photo-title">Profile Photo</div>
+				<div class="photo-circle">
+					<img id="profile-avatar" src="camera.svg" alt="Profile photo">
+					<label class="upload-action">
+						<input id="profile-photo-input" type="file" accept="image/png,image/jpeg">
+					</label>
+				</div>
+				<p class="photo-caption">Tap to change or remove your photo</p>
+			</div>
+
+			<div class="card info-card">
+				<h2>Account Info</h2>
+				<p>Update your display name, username, and email address from your profile.</p>
+				<div class="info-list">
+					<div class="info-item">
+						<label>Display Name</label>
+						<strong id="profile-username">Player</strong>
+					</div>
+					<div class="info-item">
+						<label>Username</label>
+						<strong id="profile-display-name">@player</strong>
+					</div>
+					<div class="info-item">
+						<label>Email</label>
+						<strong id="profile-email">guest@rise.com</strong>
+					</div>
+				</div>
+				<div class="button-row">
+					<button type="button" id="logout-btn">Log Out</button>
+				</div>
+			</div>
+		</section>
+	</div>
+
 </section>
 
 <nav class="bottom-nav">
@@ -417,7 +809,7 @@
         <img src="magnifying-glass.svg" class="icons">
         <span>Discover</span>
     </a>
-    <a href="profile.html" class="nav-item">
+    <a href="#" class="nav-item" onclick="showPage('profile')">
         <img src="user-circle.svg" class="icons">
         <span>Profile</span>
     </a>
@@ -657,6 +1049,68 @@
     // 3. Scroll to top of the new "screen"
     window.scrollTo(0, 0);
 }
+const profileCard = document.getElementById('profile-card');
+		const signedOut = document.getElementById('signed-out');
+		const profileAvatar = document.getElementById('profile-avatar');
+		const profilePhotoInput = document.getElementById('profile-photo-input');
+		const profileUsername = document.getElementById('profile-username');
+		const profileDisplayName = document.getElementById('profile-display-name');
+		const profileEmail = document.getElementById('profile-email');
+		const logoutBtn = document.getElementById('logout-btn');
+
+		function formatUsername(name) {
+			if (!name) return '@user';
+			const cleaned = name.trim().toLowerCase().replace(/\s+/g, '_');
+			return cleaned.startsWith('@') ? cleaned : '@' + cleaned;
+		}
+
+		function getAvatarSource(user) {
+			return user.profilePic || 'camera.svg';
+		}
+
+		function loadProfile() {
+			const user = getCurrentUser();
+			if (!user) {
+				profileCard.style.display = 'none';
+				signedOut.style.display = 'block';
+				return;
+			}
+
+			profileCard.style.display = 'block';
+			signedOut.style.display = 'none';
+
+			profileAvatar.src = getAvatarSource(user);
+			profileUsername.textContent = user.username || 'User';
+			profileDisplayName.textContent = formatUsername(user.username || 'user');
+			profileEmail.textContent = user.email || 'guest@rise.com';
+		}
+
+		function saveProfilePhoto(imageData) {
+			const currentUser = getCurrentUser();
+			if (!currentUser || !currentUser.email) return;
+			updateUserProfilePic(currentUser.email, imageData);
+		}
+
+		function uploadProfilePicture(event) {
+			const file = event.target.files[0];
+			if (!file) return;
+			const reader = new FileReader();
+			reader.onload = () => {
+				const imageData = reader.result;
+				profileAvatar.src = imageData;
+				saveProfilePhoto(imageData);
+			};
+			reader.readAsDataURL(file);
+		}
+
+		function logoutProfile() {
+			logoutCurrentUser();
+			loadProfile();
+		}
+
+		profilePhotoInput.addEventListener('change', uploadProfilePicture);
+		logoutBtn.addEventListener('click', logoutProfile);
+		document.addEventListener('DOMContentLoaded', loadProfile);
       
 
 </script>
