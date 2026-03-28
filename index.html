@@ -7,31 +7,42 @@
     <link rel="stylesheet" href="style.css">
 	<script src="userDatabase.js" defer></script>
        <style>
+        html body{
+            margin:0;
+            padding:0;
+            width:100%;
+            background-color: #000;
+            overflow-x: hidden;
+
+        }
         /*Home container styling*/
         * {
-            box-sizing: border-box;
+            box-sizing:border-box;
             font-family: 'Segoe UI', sans-serif;
         }
-
-        body {
-               background-color: black;
-            margin: 0;
+        .main-container {
+            width: 100%;
+            /*max-width: 470px;*/
+            /* Keeps it phone-sized on desktop */
+            background-color:black;
+            padding: 10px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
             min-height: 100vh;
-           
-            
+            margin: 0;
         }
 
         .app-container {
          width: 100%;
-            max-width: 450px;
+           /* max-width: 470px;*/
             /* Keeps it phone-sized on desktop */
             background-color:black;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            min-height: 100vh;
         }
 
         .header {
@@ -61,11 +72,11 @@
 
         /* Daily Verse Card styling */
         .daily-verse {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/Gemini_Generated_Image_cy91npcy91npcy91.png');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('Images/Gemini_Generated_Image_cy91npcy91npcy91.png');
         }
 
         .devotional {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/Gemini_Generated_Image_cy91npcy91npcy91.png');
+            background-image:url('https://www.istockphoto.com/photos/beauty-in-nature');
         }
 /* Discover Videos styling */
 /* 1. Main Section Container (Based on your inline styles in the photo) */
@@ -267,7 +278,7 @@
             border-radius: 25%;
         }
 
-        .nav-bar {
+        /*.nav-bar {
             position: sticky;
             bottom: 0;
             background-color: black;
@@ -281,41 +292,42 @@
 			color: white;
         }
         .icons{filter: brightness(0) invert(1);}
-        #splash-screen {
+        /*#splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     background-color: #1a1a1a; /* Matches your dark theme */
-    display: flex;
+    /*display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10000; /* Must be higher than your nav bar */
-    transition: opacity 0.5s ease, visibility 0.5s;
+    /*transition: opacity 0.5s ease, visibility 0.5s;
 }
 
 .splash-logo {
     width: 120px;
     margin-bottom: 20px;
     border-radius: 20px;
-}
+}*/
 
 /* Optional: Fade out class */
-.fade-out {
+/*.fade-out {
     opacity: 0;
     visibility: hidden;
-}
+}*/
 /*Bible container styling */
        .container{ 
          width: 100%;
-            max-width: 450px;
+            max-width: 470px;
             /* Keeps it phone-sized on desktop */
             background-color:black;
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+
        }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; background-color: rgb(101, 96, 96); }
         .controls { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
@@ -336,7 +348,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 450px;
+    /*max-width: 470px;*/
     height: 50px;
     background-color: #1a1a1a; /* Matches your dark theme */
     display: flex;
@@ -397,14 +409,15 @@
 */
 		.page-shell {
 			width: 100%;
-            max-width: 450px;
+            /*max-width: 450px;*/
             /* Keeps it phone-sized on desktop */
             background-color:black;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            height: 100vh;
+            min-height: 100vh;
+            margin:0;
 		}
 
 		.top-bar {
@@ -485,7 +498,7 @@
 		}
 
 		.upload-action::before {
-			content: 'F4F7';
+			content: 'F4F7';
 			font-size: 0.95rem;
 			color: #fff;
 		}
@@ -647,7 +660,6 @@
             </div>
         </div>
         </section>
-    </div>
 </section>
 <section class="page" id="bible">
 <div class="container">
@@ -797,7 +809,7 @@
 	</div>
 
 </section>
-
+</div>
 <nav class="bottom-nav">
     <a href="#" class="nav-item" onclick="showPage('home')">
         <img src="house-line.svg" class="icons">
